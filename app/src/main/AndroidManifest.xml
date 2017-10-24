@@ -9,6 +9,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <uses-permission android:name="android.permission.NFC" />
         <activity android:name=".Card">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

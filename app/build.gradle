@@ -34,10 +34,16 @@ dependencies {
     compile 'com.github.kittinunf.fuel:fuel-android:1.11.0'
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.8.0"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18"
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 repositories {
     mavenCentral()
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
