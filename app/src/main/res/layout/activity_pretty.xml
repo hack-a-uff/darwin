@@ -34,59 +34,122 @@
                     android:textSize="32dp"
                     android:id="@+id/contacts" android:layout_alignTop="@+id/avatar"
                     android:layout_alignParentStart="true"/>
+
         </RelativeLayout>
-        <RelativeLayout android:orientation="vertical" android:layout_weight="1" android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
-            <TextView android:id="@+id/name" android:layout_centerHorizontal="true" android:text="Mateus Rodrigues Alves"
-                      android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textStyle="bold"
-                      android:textColor="@color/colorAccent"
-                      android:textSize="26sp"/>
-            <TextView android:id="@+id/course" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
-                      android:layout_below="@id/name" android:text="Ciência da computação" android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" android:textStyle="bold"
-                      android:textColor="@color/colorAccent"
-                      android:textSize="18sp"/>
-            <TextView android:id="@+id/number" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
-                      android:layout_below="@id/course" android:text="113.031.048" android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" android:textStyle="bold"
-                      android:textColor="@color/colorAccent"
-                      android:textSize="18sp"/>
-            <TextView android:id="@+id/expires" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
-                      android:layout_below="@id/number" android:text="Válido até 02/17" android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" android:textStyle="bold"
-                      android:textColor="@color/colorAccent"
-                      android:textSize="18sp"/>
-            <TextView android:id="@+id/situation" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
-                      android:layout_below="@id/expires" android:text="Situação: Inscrito" android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" android:textStyle="bold"
-                      android:textColor="@color/colorAccent"
-                      android:textSize="18sp"/>
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_below="@id/situation" android:layout_marginTop="20dp">
-                    <TextView android:id="@+id/ru"
-                              android:text="Saldo(R.U.): R$ 0,00" android:layout_width="wrap_content"
-                              android:layout_height="22dp" android:textStyle="bold"
-                              android:textColor="@color/colorAccent"
-                              android:textSize="22sp"
-                              android:layout_alignBottom="@+id/linearLayout" android:layout_centerHorizontal="true"
-                              android:layout_alignParentTop="true"/>
-                    <LinearLayout android:orientation="vertical"
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:layout_toEndOf="@id/ru" android:id="@+id/linearLayout">
-                        <ImageButton android:layout_weight="1"
-                                     android:id="@+id/ic_master"
-                                     android:minHeight="22sp" android:layout_width="wrap_content"
-                                     android:background="@color/colorPrimary" android:layout_height="wrap_content"
-                                     android:src="@drawable/ic_mastercard"/>
-                        <ImageButton android:layout_weight="1"
-                                     android:id="@+id/ic_visa"
-                                     android:minHeight="22sp" android:layout_width="wrap_content"
-                                     android:background="@color/colorPrimary" android:layout_height="wrap_content"
-                                     android:src="@drawable/ic_visa"/>
-                    </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Aluno"
+                android:textColor="@color/colorAccent"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/course"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Curso"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/course"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Matricula"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/expires"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/number"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Validade"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/situation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expires"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Situação"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/situation"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/ru"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_alignBottom="@+id/linearLayout"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Saldo(R.U.): R$ 0,00"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/ru"
+                    android:layout_marginStart="18dp">
+
+                    <ImageButton
+                        android:id="@+id/ic_master"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/relativeLayout"
+                        android:layout_toEndOf="@+id/situation"
+                        android:background="@color/colorPrimary"
+                        android:minHeight="22sp"
+                        android:src="@drawable/ic_mastercard" />
+
+                    <ImageButton
+                        android:id="@+id/ic_visa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:minHeight="22sp"
+                        android:src="@drawable/ic_visa" />
+                </LinearLayout>
             </RelativeLayout>
+
         </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

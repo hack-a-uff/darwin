@@ -80,13 +80,23 @@ class Contacts : AppCompatActivity() {
             }
         } else {
         }
+//        val qrbtn = findViewById<Button>(R.id.qrcodebutton)
+//        qrbtn.callOnClick(){
+//            val intent = Intent(applicationContext, Contacts::class.java)
+//            intent.action = "com.google.zxing.client.android.SCAN"
+//            intent.putExtra("SAVE_HISTORY", false)
+//            startActivityForResult(intent, 0)
+//        }
 
     }
 
     private fun getAdapter(): NfcAdapter? {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         return nfcAdapter
+//        return startActivityForResult(this, 0, Intent(this,
+//                javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0)
     }
+
 
     fun updateContacts(result: List<Student>) {
 
