@@ -9,8 +9,8 @@ import com.github.kittinunf.fuel.Fuel
 import kotlinx.coroutines.experimental.channels.Channel
 
 
-class UserManager(
-    val update: Channel<Student>
+class UserManager<Chan>(
+    val update: Channel<Chan>
 ) {
     private val url: String = "http://10.1.198.107:8878"
     private val mapper : ObjectMapper = ObjectMapper()
@@ -30,5 +30,11 @@ class UserManager(
         val response = Fuel.patch("$url/v1/students/$cardId").header("Content-Type" to "application/json")
             .body(mapper.writeValueAsBytes(mapOf("uffFunds" to funds)))
             .response()
+    }
+    fun getContactsName(cardId: String): List<String>{
+        val response = Fuel.get("$url/v1/students/$cardId/contacts").response().second
+        val srt = String(response.data)
+        val list = mapper.readValue<List<Student>>(srt)
+        return  list.map { it.name }
     }
 }

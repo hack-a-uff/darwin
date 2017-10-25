@@ -23,7 +23,10 @@
         <meta-data
                 android:name="com.google.android.gms.wallet.api.enabled"
                 android:value="true" />
-
+        <activity
+            android:name=".Contacts"
+            android:label="@string/title_activity_contacts"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
