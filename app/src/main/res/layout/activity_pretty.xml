@@ -1,5 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/colorPrimary"
@@ -25,6 +25,11 @@
                     android:background="@color/colorAccent"
                     android:layout_centerInParent="true"
                     android:src="@drawable/common_google_signin_btn_icon_dark" android:id="@+id/avatar"/>
+            <ImageButton
+                    android:layout_width="55dp"
+                    android:layout_height="55dp" app:srcCompat="?android:attr/actionModeFindDrawable"
+                    android:id="@+id/contacts" android:layout_alignTop="@+id/avatar"
+                    android:layout_alignParentStart="true"/>
         </RelativeLayout>
         <RelativeLayout android:orientation="vertical" android:layout_weight="1" android:layout_width="fill_parent"
                         android:layout_height="fill_parent">
@@ -55,15 +60,17 @@
                       android:textSize="18sp"/>
             <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:layout_below="@id/situation" android:layout_marginTop="20dp">
-                    <TextView android:id="@+id/ru" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
-                              android:text="Saldo(R.U.): R$ 0,00" android:layout_width="wrap_content" android:layout_marginEnd="10dp"
+                    <TextView android:id="@+id/ru"
+                              android:text="Saldo(R.U.): R$ 0,00" android:layout_width="wrap_content"
                               android:layout_height="22dp" android:textStyle="bold"
                               android:textColor="@color/colorAccent"
-                              android:textSize="22sp"/>
+                              android:textSize="22sp"
+                              android:layout_alignBottom="@+id/linearLayout" android:layout_centerHorizontal="true"
+                              android:layout_alignParentTop="true"/>
                     <LinearLayout android:orientation="vertical"
-                            android:layout_width="match_parent"
+                                  android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
-                                  android:layout_toEndOf="@id/ru">
+                                  android:layout_toEndOf="@id/ru" android:id="@+id/linearLayout">
                         <ImageButton android:layout_weight="1"
                                      android:id="@+id/ic_master"
                                      android:minHeight="22sp" android:layout_width="wrap_content"

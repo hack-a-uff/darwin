@@ -40,6 +40,7 @@ import kotlin.experimental.and
 class PrettyActivity : Activity() {
     val update  = Channel<Student>(1)
     val userManager= UserManager(update)
+    var currentID: Long = 0
     lateinit var pendingIndent: PendingIntent
     lateinit var nfcAdapter: NfcAdapter
     val s  = X(update, this)
@@ -95,6 +96,7 @@ class PrettyActivity : Activity() {
                 Toast.makeText(this, "NULL TAG", Toast.LENGTH_SHORT).show()
             } else {
                 val v = toDec(tag.id).toString()
+                currentID = v.toLong()
                 runBlocking {
                     launch(CommonPool) {
                         userManager.update.send(userManager.getUser(v))
@@ -158,6 +160,14 @@ class PrettyActivity : Activity() {
                 Log.w("isReadyToPay failed", exception)
             }
         }
+        val contactsButton = findViewById<ImageButton>(R.id.contacts)
+        contactsButton.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val intent = Intent(context, Contacts::class.java)
+                intent.putExtra("logged",currentID)
+                startActivity(intent)
+            }
+        })
         visaButton.setOnClickListener(object : View.OnClickListener {
 
             override fun onClick(arg0: View) {
