@@ -3,18 +3,18 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "br.uff.ic.darwin"
-        minSdkVersion 24
-        targetSdkVersion 26
+        minSdkVersion 23
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,23 +25,38 @@ android {
 }
 
 
+buildscript {
+    ext.kotlin_version = '1.1.51'
+
+    repositories{
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.github.kittinunf.fuel:fuel-android:1.11.0'
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.8.0"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.18"
-    testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile 'com.google.android.gms:play-services-wallet:11.4.0'
+    compile 'com.google.android.gms:play-services-tasks:11.4.0'
+    compile 'com.google.android.gms:play-services-base:11.4.0'
+    compile 'com.google.android.gms:play-services-basement:11.4.0'
+    compile 'com.stripe:stripe-android:5.1.0'
 }
-repositories {
-    mavenCentral()
-}
+
 kotlin {
     experimental {
         coroutines "enable"
