@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.uff.ic.darwin.Contacts"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:id="@+id/contactLayout">
 
     <ListView
         android:layout_width="368dp"

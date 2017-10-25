@@ -1,19 +1,20 @@
 package br.uff.ic.darwin
 
-import android.Manifest
+import android.app.Activity
 import android.app.PendingIntent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
 import android.content.DialogInterface
 import android.content.Intent
-import android.app.Activity
 import android.graphics.BitmapFactory
+import android.nfc.NfcAdapter
+import android.nfc.Tag
 import android.os.AsyncTask
+import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
 import br.uff.ic.darwin.user.Student
 import br.uff.ic.darwin.user.UserManager
@@ -23,17 +24,13 @@ import com.google.android.gms.wallet.AutoResolveHelper
 import com.google.android.gms.wallet.PaymentData
 import com.google.android.gms.wallet.PaymentsClient
 import com.stripe.android.model.Token
-import kotlinx.coroutines.experimental.channels.Channel
-import kotlinx.coroutines.experimental.runBlocking
-import android.nfc.NfcAdapter
-import android.widget.ImageView
-import android.widget.Toast
-import android.nfc.Tag
 import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.channels.Channel
 import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.runBlocking
 import java.lang.Math.pow
+import java.util.*
 import kotlin.experimental.and
-import java.util.HashMap
 
 var ACTUALSTUDENT: Student? = null
 

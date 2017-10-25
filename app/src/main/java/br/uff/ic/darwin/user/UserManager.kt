@@ -8,13 +8,12 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.github.kittinunf.fuel.Fuel
 import kotlinx.coroutines.experimental.channels.Channel
-import br.uff.ic.darwin.Card
 
 
 class UserManager<Chan>(
     val update: Channel<Chan>
 ) {
-    private val url: String = "http://10.1.198.107:8878"
+    private val url: String = "http://192.168.24.122:8878"
     private val mapper : ObjectMapper = ObjectMapper()
     init {
         mapper.registerKotlinModule()
@@ -23,8 +22,8 @@ class UserManager<Chan>(
     }
 
     fun getUser(cardId: String): Student {
-        val response = Fuel.get("$url/v1/students/$cardId").response().second
-        val src = String(response.data)
+        val response = Fuel.get("$url/v1/students/$cardId").response()
+        val src = String(response.second.data)
         val aux = mapper.readValue<Student>(src)
         ACTUALSTUDENT = aux
         return aux
@@ -36,9 +35,14 @@ class UserManager<Chan>(
             .response()
     }
     fun getContacts(cardId: String): List<Student>{
-        val response = Fuel.get("$url/v1/students/$cardId/contacts").response().second
-        val srt = String(response.data)
+        val response = Fuel.get("$url/v1/students/$cardId/contacts").response()
+        val srt = String(response.second.data)
         val list = mapper.readValue<List<Student>>(srt)
         return  list
+    }
+
+    fun addContact(studentID: String, contactID:String): List<Student>{
+        val response = Fuel.post("$url/v1/students/$studentID/contacts/$contactID").response().second
+        return listOf()
     }
 }
