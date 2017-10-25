@@ -1,31 +1,34 @@
 package br.uff.ic.darwin
 
-import android.content.DialogInterface
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import android.view.View
 import android.widget.*
 import br.uff.ic.darwin.user.UserManager
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.channels.Channel
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.runBlocking
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
+import br.uff.ic.darwin.user.Student
+
 
 class Contacts : AppCompatActivity() {
 
-    val update  = Channel<List<String>>(1)
+    val update  = Channel<List<Student>>(1)
     val manager = UserManager(update)
     val s  = X(update, this)
-    class X(val update : Channel<List<String>>, val c: Contacts) : AsyncTask<Void, Void, List<String>>() {
+    class X(val update : Channel<List<Student>>, val c: Contacts) : AsyncTask<Void, Void, List<Student>>() {
 
-        override fun onPostExecute(result: List<String>) {
+        override fun onPostExecute(result: List<Student>) {
             super.onPostExecute(result)
             c.updateContacts(result)
             X(update, c).execute()
         }
 
-        override fun doInBackground(vararg params: Void?): List<String> {
+        override fun doInBackground(vararg params: Void?): List<Student> {
             return runBlocking {
                 update.receive()
             }
@@ -33,18 +36,18 @@ class Contacts : AppCompatActivity() {
 
     }
 
-    fun updateContacts(result: List<String>) {
-
-        val alertDialogBuilder = AlertDialog.Builder(
-                this)
+    fun updateContacts(result: List<Student>) {
 
         val contactList = findViewById<ListView>(R.id.contactList)
-        val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,result)
+        val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, result.map { it.name })
 
-        alertDialogBuilder.setView(contactList)
         contactList.setAdapter(adapter)
 
-
+        contactList.onItemClickListener = object : OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedFromList = result.get(position)
+            }
+        }
 
     }
 
@@ -56,7 +59,7 @@ class Contacts : AppCompatActivity() {
         Toast.makeText(this, logged.toString(),Toast.LENGTH_LONG).show()
         runBlocking {
             launch(CommonPool){
-                val element = manager.getContactsName(logged.toString())
+                val element = manager.getContacts(logged.toString())
                 s.update.send(element)
             }
         }

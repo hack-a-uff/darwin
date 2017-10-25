@@ -31,10 +31,10 @@ class UserManager<Chan>(
             .body(mapper.writeValueAsBytes(mapOf("uffFunds" to funds)))
             .response()
     }
-    fun getContactsName(cardId: String): List<String>{
+    fun getContacts(cardId: String): List<Student>{
         val response = Fuel.get("$url/v1/students/$cardId/contacts").response().second
         val srt = String(response.data)
         val list = mapper.readValue<List<Student>>(srt)
-        return  list.map { it.name }
+        return  list
     }
 }
