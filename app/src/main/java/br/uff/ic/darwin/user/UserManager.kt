@@ -30,6 +30,5 @@ class UserManager(
         val response = Fuel.patch("$url/v1/students/$cardId").header("Content-Type" to "application/json")
             .body(mapper.writeValueAsBytes(mapOf("uffFunds" to funds)))
             .response()
-        8*8
     }
 }

@@ -60,6 +60,8 @@ class Card : AppCompatActivity() {
 
     }
 
+    fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this).replace(".", ",")
+
     fun updateShit(student: Student){
         val name = findViewById<TextView>(R.id.nameView)
         val registration = findViewById<TextView>(R.id.registrationView)
@@ -74,8 +76,8 @@ class Card : AppCompatActivity() {
         course.text = student.course
         expiresIn.text = student.expiresAt
         enrolled.text = "Inscrito"
-        buFund.text = "R$ ${student.rioCardFunds}"
-        ruFunds.text = "R$ ${student.uffFunds}"
+        buFund.text = "R$ ${student.rioCardFunds.format(2)}"
+        ruFunds.text = "R$ ${student.uffFunds.format(2)}"
         val decodedString = Base64.decode(student.picture, Base64.DEFAULT)
         val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
         avatar.setImageBitmap(decodedByte)
@@ -264,11 +266,11 @@ class Card : AppCompatActivity() {
         if (data != "deu ruim"){
             val ruFunds = findViewById<TextView>(R.id.ruFundsView)
             var oldValue = ruFunds.text
-            oldValue = oldValue.replace(Regex("R\\$ "), "")
+            oldValue = oldValue.replace(Regex("R\\$ "), "").replace(",", ".")
             var doubleValue = oldValue.toString().toDouble()
             doubleValue += (MEUCACHEDEAMMOUNT / 100.0)  
 
-            findViewById<TextView>(R.id.ruFundsView).text = doubleValue.toString()
+            findViewById<TextView>(R.id.ruFundsView).text = "R$ ${doubleValue.format(2)}"
             runBlocking {
                 launch(CommonPool) {
                     userManager.updateFunds(MEUCACHEDECARDID, doubleValue)
