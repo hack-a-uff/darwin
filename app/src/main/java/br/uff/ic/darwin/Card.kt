@@ -35,6 +35,7 @@ import java.lang.Math.pow
 import kotlin.experimental.and
 import java.util.HashMap
 
+var ACTUALSTUDENT: Student? = null
 
 class Card : AppCompatActivity() {
     val update  = Channel<Student>(1)

@@ -1,5 +1,6 @@
 package br.uff.ic.darwin.user
 
+import br.uff.ic.darwin.ACTUALSTUDENT
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -7,6 +8,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.github.kittinunf.fuel.Fuel
 import kotlinx.coroutines.experimental.channels.Channel
+import br.uff.ic.darwin.Card
 
 
 class UserManager<Chan>(
@@ -23,7 +25,9 @@ class UserManager<Chan>(
     fun getUser(cardId: String): Student {
         val response = Fuel.get("$url/v1/students/$cardId").response().second
         val src = String(response.data)
-        return mapper.readValue(src)
+        val aux = mapper.readValue<Student>(src)
+        ACTUALSTUDENT = aux
+        return aux
     }
 
     fun updateFunds(cardId: String, funds:Double){

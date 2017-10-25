@@ -1,12 +1,12 @@
 package br.uff.ic.darwin.user
 
 data class Student(
-    val name: String,
-    val picture: String,
-    val cardNfcId: String,
-    val uffRegistrationNumber: String,
-    val course: String,
-    val expiresAt: String,
-    val uffFunds: Double = 0.0,
-    val rioCardFunds: Double = 0.0
+    var name: String,
+    var picture: String,
+    var cardNfcId: String,
+    var uffRegistrationNumber: String,
+    var course: String,
+    var expiresAt: String,
+    var uffFunds: Double = 0.0,
+    var rioCardFunds: Double = 0.0
 )
