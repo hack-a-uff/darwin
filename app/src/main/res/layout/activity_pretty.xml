@@ -1,0 +1,81 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/colorPrimary"
+             tools:context="br.uff.ic.darwin.PrettyActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <RelativeLayout android:orientation="horizontal" android:layout_weight="1" android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+            <ImageView
+                    android:padding="1dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:background="@color/colorAccent"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/common_google_signin_btn_icon_dark" android:id="@+id/avatar"/>
+        </RelativeLayout>
+        <RelativeLayout android:orientation="vertical" android:layout_weight="1" android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+            <TextView android:id="@+id/name" android:layout_centerHorizontal="true" android:text="Mateus Rodrigues Alves"
+                      android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="26sp"/>
+            <TextView android:id="@+id/course" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
+                      android:layout_below="@id/name" android:text="Ciência da computação" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="18sp"/>
+            <TextView android:id="@+id/number" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
+                      android:layout_below="@id/course" android:text="113.031.048" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="18sp"/>
+            <TextView android:id="@+id/expires" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
+                      android:layout_below="@id/number" android:text="Válido até 02/17" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="18sp"/>
+            <TextView android:id="@+id/situation" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
+                      android:layout_below="@id/expires" android:text="Situação: Inscrito" android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" android:textStyle="bold"
+                      android:textColor="@color/colorAccent"
+                      android:textSize="18sp"/>
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:layout_below="@id/situation" android:layout_marginTop="20dp">
+                    <TextView android:id="@+id/ru" android:layout_marginTop="10dp" android:layout_centerHorizontal="true"
+                              android:text="Saldo(R.U.): R$ 0,00" android:layout_width="wrap_content" android:layout_marginEnd="10dp"
+                              android:layout_height="22dp" android:textStyle="bold"
+                              android:textColor="@color/colorAccent"
+                              android:textSize="22sp"/>
+                    <LinearLayout android:orientation="vertical"
+                            android:layout_width="match_parent"
+                                  android:layout_height="wrap_content"
+                                  android:layout_toEndOf="@id/ru">
+                        <ImageButton android:layout_weight="1"
+                                     android:id="@+id/ic_master"
+                                     android:minHeight="22sp" android:layout_width="wrap_content"
+                                     android:background="@color/colorPrimary" android:layout_height="wrap_content"
+                                     android:src="@drawable/ic_mastercard"/>
+                        <ImageButton android:layout_weight="1"
+                                     android:id="@+id/ic_visa"
+                                     android:minHeight="22sp" android:layout_width="wrap_content"
+                                     android:background="@color/colorPrimary" android:layout_height="wrap_content"
+                                     android:src="@drawable/ic_visa"/>
+                    </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>
