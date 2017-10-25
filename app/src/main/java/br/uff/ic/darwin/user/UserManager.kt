@@ -12,7 +12,7 @@ import kotlinx.coroutines.experimental.channels.Channel
 class UserManager(
     val update: Channel<Student>
 ) {
-    private val url: String = "http://10.1.198.107:8888"
+    private val url: String = "http://10.1.198.107:8878"
     private val mapper : ObjectMapper = ObjectMapper()
     init {
         mapper.registerKotlinModule()
