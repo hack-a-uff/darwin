@@ -162,7 +162,7 @@ class PrettyActivity : Activity() {
                 Log.w("isReadyToPay failed", exception)
             }
         }
-        val contactsButton = findViewById<ImageButton>(R.id.contacts)
+        val contactsButton = findViewById<Button>(R.id.contacts)
         contactsButton.setOnClickListener {
             val intent = Intent(context, Contacts::class.java)
             intent.putExtra("logged", currentID)

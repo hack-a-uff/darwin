@@ -26,6 +26,7 @@ class Contacts : AppCompatActivity() {
     val update  = Channel<List<Student>>(1)
     val manager = UserManager(update)
     val s  = X(update, this)
+    //lateinit var adapter: ArrayAdapter<String>
     lateinit var pendingIndent: PendingIntent
     lateinit var nfcAdapter: NfcAdapter
     class X(val update : Channel<List<Student>>, val c: Contacts) : AsyncTask<Void, Void, List<Student>>() {
