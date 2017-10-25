@@ -3,6 +3,7 @@ package br.uff.ic.darwin
 import android.app.PendingIntent
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.AsyncTask
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.*
 import br.uff.ic.darwin.user.UserManager
 import kotlinx.coroutines.experimental.CommonPool
@@ -19,6 +21,11 @@ import kotlinx.coroutines.experimental.runBlocking
 import android.widget.AdapterView.OnItemClickListener
 import br.uff.ic.darwin.user.Student
 import kotlin.experimental.and
+import android.widget.TextView
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+
+
 
 
 class Contacts : AppCompatActivity() {
@@ -103,9 +110,25 @@ class Contacts : AppCompatActivity() {
         val context = this
 
         val contactList = findViewById<ListView>(R.id.contactList)
-        val adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, result.map { it.name })
 
-        contactList.adapter = adapter
+        val arrayAdapter = object : ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, result.map { it.name }) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                // Get the Item from ListView
+                val view = super.getView(position, convertView, parent)
+
+                // Initialize a TextView for ListView each Item
+                val tv = view.findViewById<TextView>(android.R.id.text1)
+
+                // Set the text color of TextView (ListView Item)
+                tv.setTextColor(Color.WHITE)
+
+                // Generate ListView Item using TextView
+                return view
+            }
+        }
+
+        // DataBind ListView with items from ArrayAdapter
+        contactList.setAdapter(arrayAdapter)
 
         contactList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
             val selectedFromList = result.get(position)
