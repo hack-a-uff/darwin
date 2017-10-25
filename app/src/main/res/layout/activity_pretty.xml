@@ -3,7 +3,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/colorPrimary"
-             tools:context="br.uff.ic.darwin.PrettyActivity">
+             tools:context="br.uff.ic.darwin.PrettyActivity"
+    android:id="@+id/pretty">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,

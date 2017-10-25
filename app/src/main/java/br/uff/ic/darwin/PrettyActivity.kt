@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AlertDialog
+import android.text.Layout
 import android.util.Base64
 import android.util.Log
 import android.view.*
@@ -51,7 +52,7 @@ class PrettyActivity : Activity() {
         override fun onPostExecute(result: Student) {
             super.onPostExecute(result)
             c.updateShit(result)
-            X(update, c).execute()
+            X(update, c).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
         }
 
         override fun doInBackground(vararg params: Void?): Student {
@@ -88,7 +89,7 @@ class PrettyActivity : Activity() {
         super.onNewIntent(intent)
         Toast.makeText(this,"LI NFC",Toast.LENGTH_LONG).show()
         val action = intent.action
-
+        Log.e("############",action)
         if (NfcAdapter.ACTION_TAG_DISCOVERED == action) {
 
             val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
@@ -125,6 +126,7 @@ class PrettyActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
+        findViewById<FrameLayout>(R.id.pretty).invalidate()
         getAdapter()!!.enableForegroundDispatch(this, pendingIndent, null, null)
     }
 
@@ -137,7 +139,7 @@ class PrettyActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
         s.execute()
 
@@ -161,91 +163,79 @@ class PrettyActivity : Activity() {
             }
         }
         val contactsButton = findViewById<ImageButton>(R.id.contacts)
-        contactsButton.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                val intent = Intent(context, Contacts::class.java)
-                intent.putExtra("logged",currentID)
-                startActivity(intent)
-            }
-        })
-        visaButton.setOnClickListener(object : View.OnClickListener {
+        contactsButton.setOnClickListener {
+            val intent = Intent(context, Contacts::class.java)
+            intent.putExtra("logged", currentID)
+            startActivity(intent)
+        }
+        visaButton.setOnClickListener {
+            // get prompts.xml view
+            val li = LayoutInflater.from(context)
+            val promptsView = li.inflate(R.layout.payment_view, null)
 
-            override fun onClick(arg0: View) {
-
-                // get prompts.xml view
-                val li = LayoutInflater.from(context)
-                val promptsView = li.inflate(R.layout.payment_view, null)
-
-                val alertDialogBuilder = AlertDialog.Builder(
+            val alertDialogBuilder = AlertDialog.Builder(
                     context)
 
-                // set prompts.xml to alertdialog builder
-                alertDialogBuilder.setView(promptsView)
+            // set prompts.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView)
 
-                val userInput = promptsView
+            val userInput = promptsView
                     .findViewById<EditText>(R.id.moneyInput)
 
-                val result = findViewById<TextView>(R.id.ruFundsView)
+            val result = findViewById<TextView>(R.id.ruFundsView)
 
-                // set dialog message
-                alertDialogBuilder
+            // set dialog message
+            alertDialogBuilder
                     .setCancelable(false)
                     .setPositiveButton("OK",
-                        DialogInterface.OnClickListener { dialog, id ->
-                            // get user input and set it to result
-                            requestPayment(userInput.text.toString())
-                        })
+                            { _, _ ->
+                                // get user input and set it to result
+                                requestPayment(userInput.text.toString())
+                            })
                     .setNegativeButton("Cancel",
-                        DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                            { dialog, _ -> dialog.cancel() })
 
-                // create alert dialog
-                val alertDialog = alertDialogBuilder.create()
+            // create alert dialog
+            val alertDialog = alertDialogBuilder.create()
 
-                // show it
-                alertDialog.show()
-
-            }
-        })
+            // show it
+            alertDialog.show()
+        }
 
         val masterButton = findViewById<ImageButton>(R.id.ic_master)
-        masterButton.setOnClickListener(object : View.OnClickListener {
+        masterButton.setOnClickListener {
+            // get prompts.xml view
+            val li = LayoutInflater.from(context)
+            val promptsView = li.inflate(R.layout.payment_view, null)
 
-            override fun onClick(arg0: View) {
-
-                // get prompts.xml view
-                val li = LayoutInflater.from(context)
-                val promptsView = li.inflate(R.layout.payment_view, null)
-
-                val alertDialogBuilder = AlertDialog.Builder(
+            val alertDialogBuilder = AlertDialog.Builder(
                     context)
 
-                // set prompts.xml to alertdialog builder
-                alertDialogBuilder.setView(promptsView)
+            // set prompts.xml to alertdialog builder
+            alertDialogBuilder.setView(promptsView)
 
-                val userInput = promptsView
+            val userInput = promptsView
                     .findViewById<EditText>(R.id.moneyInput)
 
-                val result = findViewById<TextView>(R.id.ruFundsView)
+            val result = findViewById<TextView>(R.id.ruFundsView)
 
-                // set dialog message
-                alertDialogBuilder
+            // set dialog message
+            alertDialogBuilder
                     .setCancelable(false)
                     .setPositiveButton("OK",
-                        DialogInterface.OnClickListener { dialog, id ->
-                            // get user input and set it to result
-                            requestPayment(userInput.text.toString())
-                        })
+                            { _, _ ->
+                                // get user input and set it to result
+                                requestPayment(userInput.text.toString())
+                            })
                     .setNegativeButton("Cancel",
-                        DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
+                            { dialog, _ -> dialog.cancel() })
 
-                // create alert dialog
-                val alertDialog = alertDialogBuilder.create()
+            // create alert dialog
+            val alertDialog = alertDialogBuilder.create()
 
-                // show it
-                alertDialog.show()
-
-            }
-        })
+            // show it
+            alertDialog.show()
+        }
 
 
         // It's recommended to create the PaymentsClient object inside of the onCreate method.
@@ -260,10 +250,6 @@ class PrettyActivity : Activity() {
     private val LOAD_PAYMENT_DATA_REQUEST_CODE = 991
 
     private var mPaymentsClient: PaymentsClient? = null
-
-    private var mPwgButton: View? = null
-    private var mPwgStatusText: TextView? = null
-
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
@@ -294,8 +280,8 @@ class PrettyActivity : Activity() {
         //
         // Refer to your processor's documentation on how to proceed from here.
 
-        val token = paymentData.getPaymentMethodToken()
-        val stripeToken = Token.fromString(token.getToken())
+        val token = paymentData.paymentMethodToken
+        val stripeToken = Token.fromString(token.token)
         // getPaymentMethodToken will only return null if PaymentMethodTokenizationParameters was
         // not set in the PaymentRequest.
         if (stripeToken != null) {

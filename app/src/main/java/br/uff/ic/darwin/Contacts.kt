@@ -118,8 +118,6 @@ class Contacts : AppCompatActivity() {
                             DialogInterface.OnClickListener { dialog, id ->
                                 // get user input and set it to result
                                 transferMoney(userInput.text.toString(), selectedFromList)
-                                finish()
-                                startActivity(intent)
                             })
                     .setNegativeButton("Cancel",
                             DialogInterface.OnClickListener { dialog, id -> dialog.cancel() })
@@ -172,8 +170,8 @@ class Contacts : AppCompatActivity() {
         Toast.makeText(this, logged.toString(),Toast.LENGTH_LONG).show()
         runBlocking {
             launch(CommonPool){
-                val element = manager.getContacts(logged.toString())
-                s.update.send(element)
+                val element = manager.getContacts(logged.toString()).toSet()
+                s.update.send(element.toList())
             }
         }
 
