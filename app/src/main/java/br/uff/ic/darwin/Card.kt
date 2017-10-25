@@ -41,6 +41,7 @@ class Card : AppCompatActivity() {
     val userManager= UserManager(update)
     lateinit var pendingIndent: PendingIntent
     lateinit var nfcAdapter: NfcAdapter
+    var currentID: Long = 0L
     val s  = X(update, this)
     var MEUCACHEDEAMMOUNT: Long = 0
     var MEUCACHEDECARDID: String = ""
@@ -96,6 +97,7 @@ class Card : AppCompatActivity() {
                 Toast.makeText(this, "NULL TAG", Toast.LENGTH_SHORT).show()
             } else {
                 val v = toDec(tag.id).toString()
+                currentID = v.toLong()
                 runBlocking {
                     launch(CommonPool) {
                         userManager.update.send(userManager.getUser(v))
@@ -133,6 +135,7 @@ class Card : AppCompatActivity() {
             getAdapter()!!.disableForegroundDispatch(this)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         s.execute()
@@ -155,6 +158,16 @@ class Card : AppCompatActivity() {
                 Log.w("isReadyToPay failed", exception)
             }
         }
+
+        val friendButton = findViewById<Button>(R.id.Friends)
+        friendButton.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val intent = Intent(context, Contacts::class.java)
+                intent.putExtra("logged",currentID)
+                startActivity(intent)
+            }
+        })
+
         ruAddFundButton.setOnClickListener(object : View.OnClickListener {
 
             override fun onClick(arg0: View) {
